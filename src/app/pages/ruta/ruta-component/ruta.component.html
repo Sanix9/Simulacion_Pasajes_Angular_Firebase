@@ -1,0 +1,134 @@
+<div class="container">
+    <div class="p-3 text-center">
+        <h3>Agregar Ruta</h3>
+    </div>
+    <form (ngSubmit)="registrar()">
+        <div class="form-group">
+            <div class="row p-2">
+                <div class="col m-1">
+                    <input type="text" class="form-control" placeholder="Codigo" name="codigo"
+                        [(ngModel)]="ruta.codigo">
+                </div>
+                <div class="col m-1">
+                    <input type="text" class="form-control" placeholder="Descripcion" name="descripcion"
+                        [(ngModel)]="ruta.descripcion">
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col m-1">
+                    <select (change)="selecionadoGO($event)" name="origen" class="form-control"
+                        [(ngModel)]="ruta.origen">
+                        <option *ngFor="let dato of datosG">{{dato.codigo}} - {{dato.descripcion}}</option>
+                    </select>
+                </div>
+                <div class="col m-1">
+                    <select (change)="selecionadoGD($event)" name="destino" class="form-control"
+                        [(ngModel)]="ruta.destino">
+                        <option *ngFor="let dato of datosG">{{dato.codigo}} - {{dato.descripcion}}</option>
+                    </select>
+                </div>
+                <div class="col m-1">
+                    <input type="number" class="form-control" placeholder="Valor Minimo" name="valorMinimo"
+                        [(ngModel)]="ruta.valorMinimo">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col m-1"></div>
+                <div class="col m-1">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">Registrar</button>
+                </div>
+                <div class="col m-1"></div>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="p-3 text-center">
+        <h3>Lista de Rutas</h3>
+    </div>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Origen</th>
+                <th scope="col">Destino</th>
+                <th scope="col">Valor Minimo</th>
+                <th scope="col">Aciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dato of datos">
+                <td scope="row">{{dato.codigo}}</td>
+                <td>{{dato.descripcion}}</td>
+                <td>{{dato.origen}}</td>
+                <td>{{dato.destino}}</td>
+                <td>{{dato.valorMinimo}}</td>
+                <td>
+                    <div class="row">
+                        <div class="col">
+                            <button (click)="editar(dato)" data-toggle="modal" data-target="#exampleModal"
+                                class="btn btn-primary btn-lg btn-block">Editar</button>
+                        </div>
+                        <div class="col">
+                            <button (click)="eliminarRuta(dato)"
+                                class="btn btn-danger btn-lg btn-block">Eliminar</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="editaRuta()">
+                        <div class="row p-2">
+                            <div class="col">
+                                <input type="text" placeholder="Codigo" name="codigo" class="form-control"
+                                    [(ngModel)]="editRuta.codigo">
+                            </div>
+                            <div class="col">
+                                <input type="text" placeholder="Descripcion" class="form-control" name="descripcion"
+                                    [(ngModel)]="editRuta.descripcion">
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col">
+                                <select (change)="selecionadoGO($event)" class="form-control" name="origen"
+                                    [(ngModel)]="editRuta.origen">
+                                    <option *ngFor="let dato of datosG">{{dato.codigo}} - {{dato.descripcion}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select (change)="selecionadoGD($event)" class="form-control" name="destino"
+                                    [(ngModel)]="editRuta.destino">
+                                    <option *ngFor="let dato of datosG">{{dato.codigo}} - {{dato.descripcion}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="number" placeholder="Valor Minimo" class="form-control" name="valorMinimo"
+                                    [(ngModel)]="editRuta.valorMinimo">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
